@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const { tag } = Astro.params;
+const allPosts = await getCollection('blog');
+const filteredPosts = allPosts.filter(p => p.data.tags?.includes(tag));
+---
+
+<Layout title={`Posts tagged: ${tag}`} description={`Articles categorized under ${tag}.`}>
+  <main class="px-4 md:px-8 lg:px-16 py-12 space-y-12 max-w-5xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-800">Tag: {tag}</h1>
+
+    {filteredPosts.length === 0 ? (
+      <p class="text-gray-600">No posts found for this tag.</p>
+    ) : (
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {filteredPosts.map(post => (
+          <a href={`/blog/${post.slug}/`} class="block p-4 border rounded-2xl shadow hover:shadow-lg transition">
+            <h3 class="text-xl font-bold text-gray-800 mb-2">{post.data.title}</h3>
+            <p class="text-sm text-gray-600">{post.data.description}</p>
+            <p class="mt-2 text-xs text-gray-400">{new Date(post.data.pubDate).toDateString()}</p>
+          </a>
+        ))}
+      </div>
+    )}
+  </main>
+</Layout>
