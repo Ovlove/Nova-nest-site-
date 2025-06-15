@@ -3,7 +3,6 @@ import Layout from '../../layouts/BaseLayout.astro';
 import { getEntryBySlug, getCollection } from 'astro:content';
 import { AstroError } from 'astro/errors';
 
-// ✅ Add getStaticPaths for static prerendering
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
   return posts.map(post => ({
