@@ -4,17 +4,26 @@ import { getEntryBySlug } from 'astro:content';
 import { AstroError } from 'astro/errors';
 
 const { slug } = Astro.params;
-const post = await getEntryBySlug('blog', slug);
+console.log('🔍 Requested slug:', slug);
 
+const post = await getEntryBySlug('blog', slug);
 if (!post) {
+  console.error(`❌ Post not found for slug: ${slug}`);
   throw new AstroError(`Post not found for slug: ${slug}`);
 }
 
 const { Content, data, body } = post;
 
-// Estimate reading time
+console.log('✅ Post found:', {
+  title: data.title,
+  pubDate: data.pubDate,
+  tags: data.tags,
+});
+
 const wordCount = body ? body.split(/\s+/).length : 0;
 const readingTime = Math.ceil(wordCount / 200);
+console.log('📊 Word count:', wordCount);
+console.log('⏱️ Estimated reading time:', readingTime);
 ---
 
 <Layout title={data.title} description={data.description}>
