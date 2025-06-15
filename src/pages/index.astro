@@ -1,6 +1,7 @@
 ---
 // src/pages/index.astro
 import Layout from '../layouts/BaseLayout.astro';
+import SubscribeBox from '../components/SubscribeBox.astro';
 import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('blog');
@@ -40,5 +41,7 @@ const featured = allPosts.slice(0, 3);
         ))}
       </ul>
     </section>
+
+    <SubscribeBox />
   </main>
 </Layout>
