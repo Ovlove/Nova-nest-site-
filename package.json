@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "astro": "^4.16.18",
-    "@astrojs/vercel": "^6.0.2"   // ✅ Compatible with Astro v4
+    "@astrojs/vercel": "^6.0.2"
   },
   "devDependencies": {
     "prettier": "^3.2.5"
