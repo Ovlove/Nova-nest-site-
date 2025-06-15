@@ -2,6 +2,7 @@
 title: "Kickstarting NovaNest"
 description: "A quick overview of our mission and what to expect from this blog."
 pubDate: 2025-06-14
+slug: "first-post"
 tags: ["Welcome", "Mission", "Tech"]
 ---
 
