@@ -10,10 +10,11 @@ if (!post) {
   throw new AstroError(`Post not found for slug: ${slug}`);
 }
 
-const { Content, data } = post;
+// Use 'Content' from the post object directly
+const { Content, data, body } = post;
 
 // Estimate reading time (simple words-per-minute method)
-const wordCount = post.body.split(/\s+/).length;
+const wordCount = body.split(/\s+/).length;
 const readingTime = Math.ceil(wordCount / 200);
 ---
 
