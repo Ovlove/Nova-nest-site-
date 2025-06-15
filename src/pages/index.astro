@@ -1,92 +1,44 @@
 ---
-import { IconArrowUp } from 'lucide-react';
+// src/pages/index.astro
+import Layout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const featured = allPosts.slice(0, 3);
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NovaNest — Discover Tools, Tech & Digital Wisdom</title>
-    <meta name="description" content="NovaNest helps you explore modern tools, earn digitally, and grow life skills. Join the journey!" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
-    <script>
-      window.onload = () => {
-        const btn = document.getElementById('back-to-top');
-        window.addEventListener('scroll', () => {
-          if (window.scrollY > 300) btn.style.display = 'block';
-          else btn.style.display = 'none';
-        });
-      };
-      function scrollToTop() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    </script>
-  </head>
-  <body class="bg-white text-gray-800 font-sans leading-relaxed">
-    <!-- Header -->
-    <header class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-6 px-4">
-      <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between">
-        <div class="flex items-center space-x-2">
-          <img src="/logo.png" alt="NovaNest Logo" class="w-10 h-10 rounded-full" />
-          <div>
-            <h1 class="text-2xl font-bold">NovaNest</h1>
-            <p class="text-sm">Tools, Tech & Digital Income</p>
-          </div>
-        </div>
-        <nav class="mt-4 sm:mt-0">
-          <a href="/blog" class="mx-2 hover:underline">Blog</a>
-          <a href="/tools" class="mx-2 hover:underline">Tools</a>
-          <a href="/contact" class="mx-2 hover:underline">Contact</a>
-        </nav>
-      </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="text-center py-16 px-6 bg-gray-50">
-      <h2 class="text-4xl font-bold mb-4">Welcome to NovaNest</h2>
-      <p class="text-lg max-w-2xl mx-auto mb-6">Explore tech, tools, and strategies for digital success and modern living.</p>
-      <a href="/blog" class="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Start Exploring</a>
+<Layout title="NovaNest | Home" description="Explore digital income, tech tools, and modern life skills.">
+  <main class="px-4 md:px-8 lg:px-16 py-12 space-y-16">
+    <section class="text-center space-y-4">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Welcome to NovaNest</h1>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Your digital hub for tech insights, income strategies, and real-world tools.
+      </p>
     </section>
 
-    <!-- Blog & Tools Sections -->
-    <section class="max-w-5xl mx-auto py-12 px-4 grid sm:grid-cols-2 gap-8">
-      <div class="bg-white shadow rounded-xl p-6">
-        <h3 class="text-2xl font-semibold mb-2">📘 From the Blog</h3>
-        <p class="mb-4">Discover deep dives into productivity, online tools, and making money online.</p>
-        <a href="/blog" class="text-blue-600 hover:underline">Go to Blog →</a>
-      </div>
-      <div class="bg-white shadow rounded-xl p-6">
-        <h3 class="text-2xl font-semibold mb-2">🛠️ Tools Vault</h3>
-        <p class="mb-4">Browse curated tools to help you grow, work smart, and earn smarter.</p>
-        <a href="/tools" class="text-blue-600 hover:underline">Go to Tools →</a>
+    <section>
+      <h2 class="text-2xl font-semibold mb-6 text-gray-800">Featured Posts</h2>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {featured.map(post => (
+          <a href={`/blog/${post.slug}/`} class="block p-4 border rounded-2xl shadow hover:shadow-lg transition">
+            <h3 class="text-xl font-bold text-gray-800 mb-2">{post.data.title}</h3>
+            <p class="text-sm text-gray-600">{post.data.description}</p>
+            <p class="mt-2 text-xs text-gray-400">{new Date(post.data.pubDate).toDateString()}</p>
+          </a>
+        ))}
       </div>
     </section>
 
-    <!-- Subscribe Box -->
-    <section class="bg-purple-50 py-12 px-4 text-center">
-      <h4 class="text-2xl font-semibold mb-2">Subscribe for Updates</h4>
-      <p class="mb-4">Get updates, tips, and new tools right in your inbox.</p>
-      <form class="flex flex-col sm:flex-row justify-center items-center gap-4 max-w-xl mx-auto">
-        <input type="email" placeholder="you@example.com" class="px-4 py-2 border rounded w-full sm:w-auto" />
-        <button type="submit" class="px-6 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Subscribe</button>
-      </form>
+    <section>
+      <h2 class="text-2xl font-semibold mb-4 text-gray-800">Recent Articles</h2>
+      <ul class="space-y-4">
+        {allPosts.slice(3, 8).map(post => (
+          <li>
+            <a href={`/blog/${post.slug}/`} class="text-lg text-blue-600 hover:underline">{post.data.title}</a>
+            <p class="text-sm text-gray-500">{post.data.description}</p>
+          </li>
+        ))}
+      </ul>
     </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8 px-4">
-      <div class="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center">
-        <p>&copy; 2025 NovaNest. All rights reserved.</p>
-        <div class="mt-4 sm:mt-0 space-x-4">
-          <a href="https://twitter.com" class="hover:underline">Twitter</a>
-          <a href="https://github.com/Ovlove" class="hover:underline">GitHub</a>
-          <a href="/contact" class="hover:underline">Contact</a>
-        </div>
-      </div>
-    </footer>
-
-    <!-- Back to Top Button -->
-    <button id="back-to-top" onclick="scrollToTop()" class="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg hidden">
-      ↑
-    </button>
-  </body>
-</html>
+  </main>
+</Layout>
