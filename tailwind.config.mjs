@@ -1,5 +1,5 @@
 // tailwind.config.mjs
-import typography from '@tailwindcss/typography'; // ✅ Import Typography plugin
+import typography from '@tailwindcss/typography';
 
 export default {
   content: [
@@ -17,5 +17,5 @@ export default {
       },
     },
   },
-  plugins: [typography], // ✅ Register the plugin here
+  plugins: [typography],
 };
