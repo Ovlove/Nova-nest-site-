@@ -12,7 +12,7 @@
   "dependencies": {
     "astro": "^3.6.0",
     "@astrojs/vercel": "^5.2.0",
-    "@astrojs/image": "^5.0.3"
+    "@astrojs/image": "^0.15.4"
   },
   "devDependencies": {
     "prettier": "^3.2.5"
