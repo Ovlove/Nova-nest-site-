@@ -1,4 +1,6 @@
 // tailwind.config.mjs
+import typography from '@tailwindcss/typography'; // ✅ Import Typography plugin
+
 export default {
   content: [
     "./src/**/*.{astro,html,js,jsx,ts,tsx,vue,svelte,mdx,md}",
@@ -15,5 +17,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [typography], // ✅ Register the plugin here
 };
