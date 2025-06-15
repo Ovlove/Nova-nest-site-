@@ -1,4 +1,3 @@
-// src/content/config.ts
 import { defineCollection, z } from 'astro:content';
 
 const blog = defineCollection({
@@ -6,6 +5,7 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     pubDate: z.date(),
+    tags: z.array(z.string()).optional()
   }),
 });
 
