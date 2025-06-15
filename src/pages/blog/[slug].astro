@@ -10,17 +10,17 @@ export async function getStaticPaths() {
   }));
 }
 
+// Astro provides `Astro.params` to dynamic routes
 const { slug } = Astro.params;
 console.log('🔍 Requested slug:', slug);
 
+// Load the blog post based on the slug
 const post = await getEntryBySlug('blog', slug);
 if (!post) {
-  console.error(`❌ Post not found for slug: ${slug}`);
-  throw new AstroError(`Post not found for slug: ${slug}`);
+  throw new AstroError(`❌ Post not found for slug: ${slug}`);
 }
 
 const { Content, data, body } = post;
-
 const wordCount = body ? body.split(/\s+/).length : 0;
 const readingTime = Math.ceil(wordCount / 200);
 ---
