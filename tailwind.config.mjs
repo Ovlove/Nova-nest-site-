@@ -1,21 +1,12 @@
-// tailwind.config.mjs
 import typography from '@tailwindcss/typography';
 
+/** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./src/**/*.{astro,html,js,jsx,ts,tsx,vue,svelte,mdx,md}",
+    './src/**/*.{astro,html,js,jsx,ts,tsx,md,mdx}'
   ],
   theme: {
-    extend: {
-      fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
-      },
-      colors: {
-        primary: '#1e40af',
-        secondary: '#64748b',
-        accent: '#10b981',
-      },
-    },
+    extend: {}
   },
-  plugins: [typography],
+  plugins: [typography]
 };
