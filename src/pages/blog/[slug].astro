@@ -1,7 +1,15 @@
 ---
 import Layout from '../../layouts/BaseLayout.astro';
-import { getEntryBySlug } from 'astro:content';
+import { getEntryBySlug, getCollection } from 'astro:content';
 import { AstroError } from 'astro/errors';
+
+// ✅ Add getStaticPaths for static prerendering
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.slug },
+  }));
+}
 
 const { slug } = Astro.params;
 console.log('🔍 Requested slug:', slug);
@@ -14,16 +22,8 @@ if (!post) {
 
 const { Content, data, body } = post;
 
-console.log('✅ Post found:', {
-  title: data.title,
-  pubDate: data.pubDate,
-  tags: data.tags,
-});
-
 const wordCount = body ? body.split(/\s+/).length : 0;
 const readingTime = Math.ceil(wordCount / 200);
-console.log('📊 Word count:', wordCount);
-console.log('⏱️ Estimated reading time:', readingTime);
 ---
 
 <Layout title={data.title} description={data.description}>
