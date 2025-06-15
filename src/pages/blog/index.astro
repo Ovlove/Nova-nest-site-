@@ -1,6 +1,7 @@
 ---
 // src/pages/blog/index.astro
 import Layout from '../../layouts/BaseLayout.astro';
+import SubscribeBox from '../../components/SubscribeBox.astro';
 import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('blog');
@@ -27,5 +28,7 @@ const sortedPosts = allPosts.sort((a, b) =>
         </a>
       ))}
     </section>
+
+    <SubscribeBox />
   </main>
 </Layout>
