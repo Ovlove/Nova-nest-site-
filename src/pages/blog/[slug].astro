@@ -1,27 +1,29 @@
 ---
-// src/pages/blog/[slug].astro
 import Layout from '../../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import { getEntryBySlug } from 'astro:content';
+import { AstroError } from 'astro/errors';
 
 const { slug } = Astro.params;
-const allPosts = await getCollection('blog');
-const post = allPosts.find((p) => p.slug === slug);
+const post = await getEntryBySlug('blog', slug);
 
 if (!post) {
-  throw new Error(`Post not found for slug: ${slug}`);
+  throw new AstroError(`Post not found for slug: ${slug}`);
 }
 
-const { Content } = await post.render();
-const { data } = post;
+const { Content, data } = post;
 ---
 
-<Layout title={`NovaNest | ${data.title}`} description={data.description}>
-  <main class="px-4 md:px-8 lg:px-16 py-12 max-w-3xl mx-auto space-y-8">
-    <article class="space-y-4">
-      <h1 class="text-4xl font-bold text-gray-800">{data.title}</h1>
-      <p class="text-sm text-gray-500">{new Date(data.pubDate).toDateString()}</p>
+<Layout title={data.title} description={data.description}>
+  <main class="px-4 md:px-8 lg:px-16 py-12 max-w-4xl mx-auto">
+    <article class="space-y-6">
+      <header class="space-y-2">
+        <h1 class="text-4xl font-bold text-gray-800">{data.title}</h1>
+        <p class="text-sm text-gray-500">{new Date(data.pubDate).toDateString()}</p>
+      </header>
 
-      <Content class="prose prose-gray max-w-none" />
+      <div class="prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-700 prose-a:text-blue-600 prose-a:underline hover:prose-a:text-blue-800">
+        <Content />
+      </div>
     </article>
   </main>
 </Layout>
