@@ -1,16 +1,15 @@
 ---
-title: "Welcome to NovaNest"
-description: "A quick intro to what NovaNest is all about."
+title: "Kickstarting NovaNest"
+description: "A quick overview of our mission and what to expect from this blog."
 pubDate: 2025-06-14
+tags: ["Welcome", "Mission", "Tech"]
 ---
 
-Welcome to **NovaNest** — your digital nest for learning practical skills, exploring modern tech tools, and building income streams online.
+Welcome to **NovaNest**, your digital hub for growth in the modern world.
 
-We'll be sharing everything from:
+We're here to:
+- Teach digital income strategies
+- Review powerful tools
+- Deliver practical tech skills anyone can use
 
-- 💻 Tech tutorials  
-- 🧠 Productivity tips  
-- 💰 Digital income strategies  
-- 🛠️ Free tools and resources  
-
-Stay tuned. We're just getting started!
+More posts are coming soon — stay tuned!
