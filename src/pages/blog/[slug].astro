@@ -1,17 +1,18 @@
 ---
 // src/pages/blog/[slug].astro
 import Layout from '../../layouts/BaseLayout.astro';
-import { getEntryBySlug } from 'astro:content';
-import { Markdown } from 'astro/components';
+import { getCollection } from 'astro:content';
 
 const { slug } = Astro.params;
-const post = await getEntryBySlug('blog', slug);
+const allPosts = await getCollection('blog');
+const post = allPosts.find((p) => p.slug === slug);
 
 if (!post) {
   throw new Error(`Post not found for slug: ${slug}`);
 }
 
-const { data, body } = post;
+const { Content } = await post.render();
+const { data } = post;
 ---
 
 <Layout title={`NovaNest | ${data.title}`} description={data.description}>
@@ -20,7 +21,7 @@ const { data, body } = post;
       <h1 class="text-4xl font-bold text-gray-800">{data.title}</h1>
       <p class="text-sm text-gray-500">{new Date(data.pubDate).toDateString()}</p>
 
-      <Markdown content={body} class="prose prose-gray max-w-none" />
+      <Content class="prose prose-gray max-w-none" />
     </article>
   </main>
 </Layout>
