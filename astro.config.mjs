@@ -1,14 +1,15 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import tailwind from '@astrojs/tailwind';
-import vercel from '@astrojs/vercel/serverless';
+import vercel from '@astrojs/vercel';
 
 export default defineConfig({
-  output: 'server', // SSR for dynamic routes
   integrations: [
+    tailwind({
+      configFile: './tailwind.config.mjs',
+    }),
     mdx(),
-    tailwind(),
-    vercel()
+    vercel(),
   ],
-  site: 'https://nova-nest-site.vercel.app'
+  output: 'server', // needed for MDX dynamic routes
 });
