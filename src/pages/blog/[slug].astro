@@ -1,11 +1,13 @@
 ---
 import Layout from '../../layouts/BaseLayout.astro';
-import { getEntryBySlug, getCollection } from 'astro:content';
+import { getStaticPaths, getEntryBySlug, getCollection } from 'astro:content';
 import { AstroError } from 'astro/errors';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
-  return posts.map(post => ({ params: { slug: post.slug } }));
+  return posts.map(post => ({
+    params: { slug: post.slug },
+  }));
 }
 
 const { slug } = Astro.params;
@@ -13,10 +15,16 @@ const post = await getEntryBySlug('blog', slug);
 if (!post) throw new AstroError(`Post not found: ${slug}`);
 
 const { Content, data, body } = post;
-const wordCount = body.split(/\s+/).length;
-const readingTime = Math.ceil(wordCount / 200);
+const words = body.split(/\s+/).length;
+const readingTime = Math.ceil(words / 200);
 ---
 
 <Layout title={data.title} description={data.description}>
-  ...rest remains the same...
+  <article class="prose lg:prose-xl mx-auto py-12">
+    <h1>{data.title}</h1>
+    <p class="text-gray-500 text-sm">
+      {new Date(data.pubDate).toDateString()} • {readingTime} min read
+    </p>
+    <Content />
+  </article>
 </Layout>
