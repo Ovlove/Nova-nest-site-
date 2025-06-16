@@ -1,30 +1,21 @@
 ---
-import Layout from '../../layouts/BaseLayout.astro';
-import { getStaticPaths, getEntryBySlug, getCollection } from 'astro:content';
+// src/pages/blog/[slug].astro
+import { getEntryBySlug } from 'astro:content';
 import { AstroError } from 'astro/errors';
+import { slug } from 'astro:params';
+import { components } from '../../components/MDXComponents';
 
-export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  return posts.map(post => ({
-    params: { slug: post.slug },
-  }));
+const entry = await getEntryBySlug('blog', slug);
+
+if (!entry) {
+  throw new AstroError(`No post found for slug: ${slug}`);
 }
 
-const { slug } = Astro.params;
-const post = await getEntryBySlug('blog', slug);
-if (!post) throw new AstroError(`Post not found: ${slug}`);
-
-const { Content, data, body } = post;
-const words = body.split(/\s+/).length;
-const readingTime = Math.ceil(words / 200);
+const { Content, data } = await entry.render();
 ---
 
-<Layout title={data.title} description={data.description}>
-  <article class="prose lg:prose-xl mx-auto py-12">
-    <h1>{data.title}</h1>
-    <p class="text-gray-500 text-sm">
-      {new Date(data.pubDate).toDateString()} • {readingTime} min read
-    </p>
-    <Content />
-  </article>
-</Layout>
+<article class="prose prose-lg mx-auto">
+  <h1>{data.title}</h1>
+  <p class="text-gray-500 text-sm">{data.pubDate?.toDateString()}</p>
+  <Content components={components} />
+</article>
