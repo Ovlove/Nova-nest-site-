@@ -9,18 +9,17 @@
     "preview": "astro preview",
     "format": "prettier --write ."
   },
+  "engines": {
+    "node": ">=18.20.8 <19.0.0"
+  },
   "dependencies": {
-    "astro": "^4.8.0",
-    "@astrojs/mdx": "^4.3.0",
-    "@astrojs/prism": "^3.3.0",
-    "@astrojs/tailwind": "^4.0.0",
-    "@astrojs/vercel": "^4.3.0",
+    "astro": "^4.16.18",
+    "@astrojs/mdx": "^3.3.1",
+    "@astrojs/vercel": "^7.3.0",
+    "@astrojs/tailwind": "^5.1.5",
     "@tailwindcss/typography": "^0.5.9"
   },
   "devDependencies": {
-    "prettier": "^2.8.8"
-  },
-  "engines": {
-    "node": ">=18.18.0 <19.0.0"
+    "prettier": "^3.2.5"
   }
 }
